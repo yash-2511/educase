@@ -1,0 +1,294 @@
+{
+  "info": {
+    "_postman_id": "92d97f1e-5a84-4b39-af87-3c76c1b1a2e5",
+    "name": "School Management API",
+    "description": "A collection of requests for the School Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add School",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Sample Elementary School\",\n  \"address\": \"123 Education St, Los Angeles, CA\",\n  \"latitude\": 34.0522,\n  \"longitude\": -118.2437\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/addSchool",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "addSchool"
+          ]
+        },
+        "description": "Adds a new school to the database"
+      },
+      "response": [
+        {
+          "name": "Successful Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sample Elementary School\",\n  \"address\": \"123 Education St, Los Angeles, CA\",\n  \"latitude\": 34.0522,\n  \"longitude\": -118.2437\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/addSchool",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "addSchool"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"School added successfully\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Sample Elementary School\",\n    \"address\": \"123 Education St, Los Angeles, CA\",\n    \"latitude\": 34.0522,\n    \"longitude\": -118.2437\n  }\n}"
+        },
+        {
+          "name": "Validation Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"address\": \"123 Education St, Los Angeles, CA\",\n  \"latitude\": 34.0522,\n  \"longitude\": -118.2437\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/addSchool",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "addSchool"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    \"School name is required\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "List Schools",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/listSchools?latitude=34.0522&longitude=-118.2437",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "listSchools"
+          ],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "34.0522",
+              "description": "User's latitude"
+            },
+            {
+              "key": "longitude",
+              "value": "-118.2437",
+              "description": "User's longitude"
+            }
+          ]
+        },
+        "description": "Lists all schools sorted by proximity to user location"
+      },
+      "response": [
+        {
+          "name": "Successful Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/listSchools?latitude=34.0522&longitude=-118.2437",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "listSchools"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "34.0522"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-118.2437"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Schools retrieved successfully\",\n  \"count\": 2,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Sample Elementary School\",\n      \"address\": \"123 Education St, Los Angeles, CA\",\n      \"latitude\": 34.0522,\n      \"longitude\": -118.2437,\n      \"distance\": 0\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Beverly Hills High School\",\n      \"address\": \"241 Moreno Dr, Beverly Hills, CA\",\n      \"latitude\": 34.0625,\n      \"longitude\": -118.4097,\n      \"distance\": 14.85\n    }\n  ]\n}"
+        },
+        {
+          "name": "Validation Error",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/listSchools?latitude=invalid&longitude=-118.2437",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "listSchools"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "invalid"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-118.2437"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    \"Latitude must be a number\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Check API health status"
+      },
+      "response": [
+        {
+          "name": "Successful Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"status\": \"ok\"\n}"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
